@@ -1,0 +1,16 @@
+{
+  "name": "Scan stock",
+  "short_name": "Scan stock",
+  "description": "Scanner des numéros de série et des QR codes, puis les exporter dans un fichier Excel.",
+  "lang": "fr",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#f4f6f6",
+  "theme_color": "#0f5f5c",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

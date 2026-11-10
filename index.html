@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Scan stock</title>
+  <meta name="description" content="Scanner des numéros de série et des QR codes, puis les exporter dans un fichier Excel.">
+  <meta name="theme-color" content="#0f5f5c">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Scan stock</h1>
+    <p class="count" id="count" aria-live="polite"></p>
+  </header>
+
+  <main>
+    <section class="actions" aria-label="Ajouter un code">
+      <button type="button" class="btn primary big" id="scanBtn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3M7 8v8M10.5 8v8M14 8v8M17 8v8"/></svg>
+        Scanner un code
+      </button>
+      <button type="button" class="btn secondary" id="photoBtn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="3.5"/></svg>
+        Lire depuis une photo
+      </button>
+      <input type="file" id="photoInput" accept="image/*" capture="environment" hidden>
+
+      <form class="manual" id="manualForm" autocomplete="off">
+        <label for="manualInput">Ou saisir le numéro de série</label>
+        <div class="manual-row">
+          <input type="text" id="manualInput" inputmode="text" autocapitalize="characters"
+                 autocorrect="off" spellcheck="false" enterkeyhint="done" maxlength="200"
+                 placeholder="ex. 5CG1234XYZ">
+          <button type="submit" class="btn secondary">Ajouter</button>
+        </div>
+      </form>
+    </section>
+
+    <section aria-labelledby="listTitle">
+      <div class="list-head">
+        <h2 id="listTitle">Codes scannés</h2>
+        <button type="button" class="link danger" id="clearBtn" hidden>Vider la liste</button>
+      </div>
+      <p class="empty" id="empty">Rien pour l'instant. Scanne un code-barres ou un QR code, ou saisis un numéro de série.</p>
+      <ul class="list" id="list"></ul>
+    </section>
+  </main>
+
+  <footer class="bar" id="bar" hidden>
+    <button type="button" class="btn primary" id="exportBtn">Télécharger l'Excel</button>
+    <button type="button" class="btn secondary" id="shareBtn" hidden>Partager</button>
+  </footer>
+
+  <div class="scanner" id="scanner" hidden role="dialog" aria-modal="true" aria-label="Scanner un code">
+    <video id="video" playsinline muted></video>
+    <div class="frame" aria-hidden="true"></div>
+    <div class="scanner-top">
+      <button type="button" class="chip" id="torchBtn" hidden aria-pressed="false">Lampe</button>
+      <button type="button" class="chip" id="closeBtn">Terminer</button>
+    </div>
+    <div class="scanner-bottom">
+      <p class="status" id="scanStatus" aria-live="assertive">Place le code dans le cadre</p>
+      <p class="ignored" id="ignoredInfo" hidden>
+        <span id="ignoredText"></span>
+        <button type="button" class="link light" id="ignoredReset">Réinitialiser</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="sheet-backdrop" id="chooser" hidden role="dialog" aria-modal="true" aria-labelledby="chooserTitle">
+    <div class="sheet">
+      <h2 id="chooserTitle">Plusieurs codes détectés</h2>
+      <p class="hint">Touche le numéro de série. Les autres codes seront ignorés pour la suite du scan.</p>
+      <ul class="choices" id="choices"></ul>
+      <button type="button" class="btn secondary" id="chooserCancel">Aucun de ceux-là</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+    <span id="toastText"></span>
+    <button type="button" class="link light" id="toastAction" hidden></button>
+  </div>
+
+  <script src="vendor/barcode-detector.js" defer></script>
+  <script src="vendor/write-excel-file.min.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
