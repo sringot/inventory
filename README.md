@@ -13,6 +13,15 @@ Mini app web pour téléphone : on scanne les numéros de série (codes-barres, 
 
 La liste est gardée sur le téléphone tant qu'on ne la vide pas, même si on ferme la page. Rien n'est envoyé sur Internet : il n'y a ni serveur ni service externe.
 
+## Installation sur le téléphone
+
+Une fois l'app ouverte en https :
+
+- **Android (Chrome)** : menu ⋮ → « Ajouter à l'écran d'accueil » ou « Installer l'application ».
+- **iPhone (Safari)** : bouton Partager → « Sur l'écran d'accueil ».
+
+Après une première ouverture, l'app fonctionne sans réseau. Une mise à jour apparaît au deuxième lancement qui suit sa mise en ligne.
+
 ## Mise en ligne
 
 Ce sont des fichiers statiques, sans installation ni compilation : il suffit de copier le dossier sur n'importe quel serveur web.
@@ -30,5 +39,6 @@ puis ouvrir `http://localhost:8000`.
 ## Fichiers
 
 - `index.html`, `styles.css`, `app.js` : l'application.
+- `sw.js` : mise en cache pour le mode hors ligne.
 - `vendor/` : lecteur de codes et générateur Excel, embarqués (voir `vendor/README.md`).
 - `icons/`, `manifest.webmanifest` : pour ajouter l'app à l'écran d'accueil.

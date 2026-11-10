@@ -682,3 +682,8 @@ el.shareBtn.addEventListener('click', () =>
 /* ---------- Démarrage ---------- */
 
 render();
+
+// Mode hors ligne : l'app reste utilisable sans réseau une fois ouverte une première fois.
+if ('serviceWorker' in navigator && window.isSecureContext) {
+  navigator.serviceWorker.register('sw.js').catch((error) => console.error(error));
+}
